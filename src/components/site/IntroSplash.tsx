@@ -57,7 +57,7 @@ export function IntroSplash() {
           {/* video */}
           <motion.video
             ref={videoRef}
-            src="src/assets/Intro.mp4"
+            src="Intro.mp4"
             autoPlay
             muted
             playsInline
