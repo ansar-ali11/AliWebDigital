@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { projects as fallbackProjects, type Project } from "@/data/site";
 import { listProjects } from "@/lib/cms";
@@ -6,56 +6,66 @@ import { Reveal } from "./Reveal";
 
 type ProjectLike = Project & { imageUrl?: string };
 
-function ProjectCard({ p, idx }: { p: ProjectLike; idx: number }) {
+function ProjectCard({ p }: { p: ProjectLike }) {
   return (
-    <Reveal delay={idx * 0.05} className={idx % 2 === 1 ? "lg:mt-24" : ""}>
-      <a href={p.liveUrl} className="group block">
-        <div
-          className="relative aspect-[4/5] overflow-hidden mb-6"
-          style={{
-            background: p.gradient ?? "linear-gradient(135deg, #0a1a3a, #2b7fff)",
-            backgroundImage: p.imageUrl
-              ? `linear-gradient(135deg, rgba(10,26,58,0.55), rgba(10,26,58,0.25)), url(${p.imageUrl})`
-              : undefined,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          {!p.imageUrl && <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_60%)]" />}
-          <div className="absolute top-6 left-6 right-6 flex items-center justify-between text-white/80">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em]">
-              {p.category} · {p.year}
-            </span>
-            <div className="size-10 grid place-items-center border border-white/20 group-hover:bg-white group-hover:text-navy transition-colors">
-              <ArrowUpRight size={16} />
-            </div>
-          </div>
-          <div className="absolute bottom-6 left-6 right-6">
-            <h4 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">
-              {p.title}
-            </h4>
+    <a
+      href={p.liveUrl}
+      className="group flex-shrink-0 w-[260px] md:w-[300px] block"
+      style={{ textDecoration: "none" }}
+    >
+      <div
+        className="relative w-full aspect-[3/4] overflow-hidden mb-4"
+        style={{
+          background: p.gradient ?? "linear-gradient(135deg, #040d1f, #0a2a6e)",
+          backgroundImage: p.imageUrl ? `url(${p.imageUrl})` : undefined,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+        <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+          <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white/50">
+            {p.category}
+          </span>
+          <div className="size-8 grid place-items-center border border-white/20 bg-black/20 group-hover:bg-electric group-hover:border-electric transition-all duration-300">
+            <ArrowUpRight size={13} className="text-white" />
           </div>
         </div>
-        <div className="flex items-start justify-between gap-6">
-          <p className="text-navy/70 max-w-md">{p.description}</p>
-          <div className="hidden md:flex flex-wrap justify-end gap-1.5 max-w-[40%]">
-            {p.tech.map((t) => (
-              <span
-                key={t}
-                className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 border border-navy/10 text-navy/70"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+
+        <div className="absolute bottom-4 left-4 right-4">
+          <h4 className="font-display font-black text-lg text-white tracking-tight leading-tight">
+            {p.title}
+          </h4>
+          <p className="text-[9px] font-bold uppercase tracking-wider text-white/40 mt-1">
+            {p.year}
+          </p>
         </div>
-      </a>
-    </Reveal>
+
+        <div className="absolute inset-0 border border-electric/0 group-hover:border-electric/50 transition-all duration-300 pointer-events-none" />
+      </div>
+
+      <div className="flex flex-wrap gap-1.5">
+        {p.tech.slice(0, 3).map((t) => (
+          <span
+            key={t}
+            className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 border border-navy/10 text-navy/50"
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+    </a>
   );
 }
 
 export function ProjectsGrid({ heading = true, limit }: { heading?: boolean; limit?: number }) {
   const [items, setItems] = useState<ProjectLike[]>(fallbackProjects);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const animRef = useRef<number>(0);
+  const posRef = useRef<number>(0);
+  const pausedRef = useRef<boolean>(false);
+
   useEffect(() => {
     listProjects()
       .then((rows) => {
@@ -63,28 +73,62 @@ export function ProjectsGrid({ heading = true, limit }: { heading?: boolean; lim
       })
       .catch(() => {});
   }, []);
-  const visible = limit ? items.slice(0, limit) : items;
-  return (
-    <section className="py-32 px-6">
-      <div className="max-w-7xl mx-auto">
-        {heading && (
-          <Reveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-navy/40 mb-4">
-                  02 — Selected Work
-                </p>
-                <h2 className="text-4xl md:text-5xl font-display font-bold uppercase tracking-tighter leading-[0.95] max-w-2xl">
-                  Recent <span className="text-electric">projects</span> we're proud of.
-                </h2>
-              </div>
-            </div>
-          </Reveal>
-        )}
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-x-16 lg:gap-y-24">
-          {visible.map((p, i) => (
-            <ProjectCard key={p.id} p={p} idx={i} />
+  const visible = limit ? items.slice(0, limit) : items;
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const animate = () => {
+      if (!pausedRef.current) {
+        posRef.current += 0.6;
+        const half = track.scrollWidth / 2;
+        if (posRef.current >= half) posRef.current = 0;
+        track.style.transform = `translateX(-${posRef.current}px)`;
+      }
+      animRef.current = requestAnimationFrame(animate);
+    };
+
+    animRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animRef.current);
+  }, [visible]);
+
+  return (
+    <section className="py-28 relative overflow-hidden">
+      {heading && (
+        <Reveal>
+          <div className="px-6 max-w-7xl mx-auto mb-16">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="h-px w-8 bg-electric" />
+              <p className="text-[9px] font-black uppercase tracking-[0.35em] text-navy/40">
+                02 — Selected Work
+              </p>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-display font-black uppercase tracking-tighter leading-[0.92]">
+              Projects we're{" "}
+              <span className="text-electric">proud</span> of.
+            </h2>
+          </div>
+        </Reveal>
+      )}
+
+      <div
+        className="relative overflow-hidden"
+        onMouseEnter={() => { pausedRef.current = true; }}
+        onMouseLeave={() => { pausedRef.current = false; }}
+      >
+        {/* fade edges */}
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-background to-transparent" />
+
+        <div
+          ref={trackRef}
+          className="flex gap-5 will-change-transform px-6"
+          style={{ width: "max-content" }}
+        >
+          {[...visible, ...visible].map((p, i) => (
+            <ProjectCard key={`${p.id}-${i}`} p={p} />
           ))}
         </div>
       </div>
