@@ -47,17 +47,18 @@ function ProjectsAdmin() {
   }, []);
 
   // Function to get a website screenshot using a reliable free API
-  const getWebsiteScreenshot = (url: string) => {
-    if (!url || url === "#") return null;
-    // Using a free screenshot API that actually works
-    return `https://image.thum.io/get/width/600/crop/800/${encodeURIComponent(url)}`;
-  };
+ const getWebsiteScreenshot = (
+  url: string
+): string | undefined => {
+  if (!url || url === "#") return undefined;
+
+  return `https://image.thum.io/get/width/600/crop/800/${encodeURIComponent(
+    url
+  )}`;
+};
 
   // Alternative: Use a simple thumbnail service
-  const getWebsiteThumbnail = (url: string) => {
-    if (!url || url === "#") return null;
-    return `https://mini.s-shot.ru/600/?${encodeURIComponent(url)}`;
-  };
+  
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
