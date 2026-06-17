@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://aliwebdigital.in/sitemap.xml
+Sitemap: https://www.aliwebdigital.in/sitemap.xml

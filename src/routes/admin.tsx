@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, Link, useNavigate, useLocation } from "@tansta
 import { useEffect, useState } from "react";
 import { AdminAuthProvider, useAdminAuth } from "@/lib/admin-auth";
 import { LayoutDashboard, Image as ImageIcon, FolderKanban, Inbox, LogOut, Loader2 } from "lucide-react";
-
+import { ShoppingCart } from "lucide-react";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
@@ -109,6 +109,10 @@ function AdminShell() {
     { to: "/admin/banners", label: "Banners", icon: ImageIcon },
     { to: "/admin/projects", label: "Projects", icon: FolderKanban },
     { to: "/admin/submissions", label: "Submissions", icon: Inbox },
+    {to: "/admin/ebooks",label: "Ebooks",icon: FolderKanban},
+    {to: "/admin/orders",label: "Orders",icon: Inbox},
+    {to: "/admin/orders",label: "Orders",icon: ShoppingCart},
+
   ] as const;
 
   return (

@@ -8,6 +8,7 @@ import { ProjectsGrid } from "@/components/site/ProjectsGrid";
 import { Stats } from "@/components/site/Stats";
 import { ContactSection } from "@/components/site/ContactSection";
 import { IntroSplash } from "@/components/site/IntroSplash";
+import { WhyChoose } from "@/components/site/WhyChoose";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -19,6 +20,7 @@ function HomePage() {
       <IntroSplash />
       <Hero />
       <BannerCarousel />
+      <WhyChoose />
       <Marquee />
       <ServicesGrid />
       <ProjectsGrid limit={4} />

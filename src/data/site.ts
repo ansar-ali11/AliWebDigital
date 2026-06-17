@@ -37,12 +37,42 @@ export type Service = {
 };
 
 export const services: Service[] = [
-  { number: "01", title: "Web Development", description: "Custom high-performance sites and apps with modern stacks built for scale." },
-  { number: "02", title: "Portfolio Websites", description: "Distinctive personal sites for creators, founders and freelancers." },
-  { number: "03", title: "Business Websites", description: "Conversion-driven marketing sites with a refined, trustworthy aesthetic." },
-  { number: "04", title: "Admin Panels", description: "Dashboards and internal tools designed for clarity and speed." },
-  { number: "05", title: "UI / UX Design", description: "Research-backed product design with motion, polish and craft." },
-  { number: "06", title: "Branding", description: "Strategic identity systems that translate across every touchpoint." },
+  {
+    number: "01",
+    title: "Web Development",
+    description:
+      "Custom, responsive websites and web applications built with modern front-end and back-end technologies. We optimize performance, accessibility, and scalability so your site feels fast for customers and easy to manage for you.",
+  },
+  {
+    number: "02",
+    title: "Portfolio Websites",
+    description:
+      "Personal portfolio sites crafted for founders, creatives, and freelancers. Each site is built to showcase work clearly, highlight your brand, and make it easy for prospects to convert.",
+  },
+  {
+    number: "03",
+    title: "Business Websites",
+    description:
+      "Conversion-focused business websites with persuasive messaging, polished design, and SEO-friendly structure. We design each page to turn visitors into qualified leads and trusted customers.",
+  },
+  {
+    number: "04",
+    title: "Admin Panels",
+    description:
+      "Custom dashboards and internal tools designed for clarity and efficiency. We build admin interfaces with clean workflows, real-time data, and strong security patterns.",
+  },
+  {
+    number: "05",
+    title: "UI / UX Design",
+    description:
+      "Research-driven UI/UX design that balances visual polish with intuitive interaction. Every interface is crafted for clear user paths, consistent branding, and high engagement.",
+  },
+  {
+    number: "06",
+    title: "Branding",
+    description:
+      "Brand identity systems that include logo, color, typography, and messaging. We create a visual language that feels premium, memorable, and aligned with your business goals.",
+  },
 ];
 
 export type Project = {
@@ -64,7 +94,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "Shopify", "Tailwind"],
     category: "E‑commerce",
     year: "2024",
-    liveUrl: "#",
+    liveUrl: "https://aliwebdigital.com/projects/nova-commerce",
     gradient: "linear-gradient(135deg, #0a1a3a 0%, #2b7fff 100%)",
   },
   {
@@ -74,7 +104,7 @@ export const projects: Project[] = [
     tech: ["React", "Supabase", "Recharts"],
     category: "SaaS",
     year: "2024",
-    liveUrl: "#",
+    liveUrl: "https://aliwebdigital.com/projects/aether-dashboard",
     gradient: "linear-gradient(135deg, #061026 0%, #1e3a8a 100%)",
   },
   {
@@ -84,7 +114,7 @@ export const projects: Project[] = [
     tech: ["Astro", "GSAP", "MDX"],
     category: "Portfolio",
     year: "2023",
-    liveUrl: "#",
+    liveUrl: "https://aliwebdigital.com/projects/studio-arkh",
     gradient: "linear-gradient(135deg, #1e293b 0%, #2b7fff 100%)",
   },
   {
@@ -94,7 +124,7 @@ export const projects: Project[] = [
     tech: ["Webflow", "Figma", "Klaviyo"],
     category: "Brand · Web",
     year: "2024",
-    liveUrl: "#",
+    liveUrl: "https://aliwebdigital.com/projects/lumen-wellness",
     gradient: "linear-gradient(135deg, #0a1a3a 0%, #5b8def 100%)",
   },
   {
@@ -104,7 +134,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "Stripe", "Mapbox"],
     category: "Marketplace",
     year: "2023",
-    liveUrl: "#",
+    liveUrl: "https://aliwebdigital.com/projects/halcyon-travel",
     gradient: "linear-gradient(135deg, #082f49 0%, #2b7fff 100%)",
   },
   {
@@ -114,7 +144,7 @@ export const projects: Project[] = [
     tech: ["React", "tRPC", "Postgres"],
     category: "Admin Panel",
     year: "2024",
-    liveUrl: "#",
+    liveUrl: "https://aliwebdigital.com/projects/forge-studio-admin",
     gradient: "linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%)",
   },
 ];

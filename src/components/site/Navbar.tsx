@@ -8,8 +8,9 @@ import logo from "@/assets/aliweb-logo.png";
 const links = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
+  { to: "/pricing", label: "Pricing" },
   { to: "/projects", label: "Projects" },
-  { to: "/about", label: "About" },
+  { to: "/about", label: "About Us" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -38,8 +39,8 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
-          <img src={logo} alt="AliWebDigital" className="h-14 w-auto" />
+        <Link to="/" className="text-sm font-semibold uppercase tracking-[0.18em] text-navy">
+          AliWebDigital
         </Link>
 
         <nav className="hidden md:flex items-center gap-10 text-sm font-medium uppercase tracking-[0.18em]">

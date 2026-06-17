@@ -10,6 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+
 import { db, storage } from "./firebase";
 
 export type BannerDoc = {
@@ -47,14 +48,85 @@ export type SubmissionDoc = {
   createdAt?: number;
 };
 
+export interface EbookDoc {
+  id?: string;
+
+  title: string;
+  author: string;
+
+  description: string;
+
+  price: number;
+
+  driveLink: string;
+
+  coverImage?: string;
+
+  previewImages?: string[];
+
+  featured: boolean;
+
+  active: boolean;
+
+  createdAt: number;
+}
+
+export interface PurchaseRequestDoc {
+  id?: string;
+
+  ebookId: string;
+  ebookTitle: string;
+
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+
+  transactionId: string;
+
+  status: "pending" | "approved" | "rejected";
+
+  createdAt: number;
+}
+
+const purchaseRequestsRef =
+  collection(db, "purchaseRequests");
 const bannersCol = () => collection(db, "banners");
 const projectsCol = () => collection(db, "projects");
 const submissionsCol = () => collection(db, "submissions");
+const ebooksRef = collection(db, "ebooks");
 
 export async function listBanners(): Promise<BannerDoc[]> {
   const snap = await getDocs(query(bannersCol(), orderBy("createdAt", "desc")));
   return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<BannerDoc, "id">) }));
 }
+
+
+
+export async function listEbooks() {
+  const snap = await getDocs(ebooksRef);
+
+  return snap.docs.map((d) => ({
+    id: d.id,
+    ...d.data(),
+  })) as EbookDoc[];
+}
+
+export async function createEbook(
+  ebook: Omit<EbookDoc, "id">
+) {
+  return addDoc(ebooksRef, ebook);
+}
+
+export async function deleteEbook(
+  ebook: EbookDoc
+) {
+  if (!ebook.id) return;
+
+  return deleteDoc(
+    doc(db, "ebooks", ebook.id)
+  );
+}
+
 export async function listProjects(): Promise<ProjectDoc[]> {
   const snap = await getDocs(query(projectsCol(), orderBy("createdAt", "desc")));
   return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ProjectDoc, "id">) }));
@@ -157,4 +229,38 @@ export async function submitInquiry(data: Omit<SubmissionDoc, "id" | "createdAt"
 
 export async function deleteSubmission(id: string) {
   await deleteDoc(doc(db, "submissions", id));
+}
+
+
+export async function createPurchaseRequest(
+  data: Omit<PurchaseRequestDoc, "id">
+) {
+  return addDoc(
+    purchaseRequestsRef,
+    data
+  );
+}
+
+export async function listPurchaseRequests() {
+  const snap = await getDocs(
+    query(
+      purchaseRequestsRef,
+      orderBy("createdAt", "desc")
+    )
+  );
+
+  return snap.docs.map((d) => ({
+    id: d.id,
+    ...d.data(),
+  })) as PurchaseRequestDoc[];
+}
+
+export async function updatePurchaseStatus(
+  id: string,
+  status: "approved" | "rejected"
+) {
+  await updateDoc(
+    doc(db, "purchaseRequests", id),
+    { status }
+  );
 }

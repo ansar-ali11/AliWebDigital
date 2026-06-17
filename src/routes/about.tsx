@@ -14,9 +14,15 @@ export const Route = createFileRoute("/about")({
           "AliWebDigital is a premium digital studio focused on craft, performance and lasting partnerships.",
       },
       { property: "og:title", content: "About — AliWebDigital" },
-      { property: "og:url", content: "/about" },
+      { property: "og:url", content: "https://www.aliwebdigital.in/about" },
+      { property: "og:image", content: "https://www.aliwebdigital.in/og-image.png" },
+      { property: "og:image:alt", content: "AliWebDigital website design and branding showcase" },
+      { property: "og:site_name", content: "AliWebDigital" },
+      { name: "twitter:site", content: "@AliWebDigital" },
+      { name: "twitter:image", content: "https://www.aliwebdigital.in/og-image.png" },
+      { name: "twitter:image:alt", content: "AliWebDigital website design and branding showcase" },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: "https://www.aliwebdigital.in/about" }],
   }),
   component: AboutPage,
 });
@@ -32,9 +38,9 @@ function AboutPage() {
   return (
     <SiteLayout>
       <PageHero
-        eyebrow="About"
-        title={<>A small studio with <span className="text-electric">big</span> ambition.</>}
-        description="AliWebDigital is a boutique digital studio building modern websites, brand systems and product interfaces for founders and agencies worldwide."
+        eyebrow="About Us"
+        title={<>AliWebDigital is a boutique digital studio built for founders who want exceptional work.</>}
+        description="We deliver modern websites, digital products, and brand systems with senior-led craft and a clear focus on business results."
       />
 
       <section className="px-6 py-24">
@@ -49,13 +55,13 @@ function AboutPage() {
             <div className="space-y-5 text-navy/70 text-lg leading-relaxed">
               <p>
                 We started AliWebDigital to build the kind of work we love using —
-                fast, beautiful and quietly intelligent. No bloated processes, no
-                generic templates, no junior‑led delivery.
+                fast, beautiful, and quietly intelligent. No bloated processes, no
+                generic templates, no junior-led delivery.
               </p>
               <p>
                 Whether you need a portfolio site, a marketing presence, an admin
-                panel or a complete brand system, we partner closely with you to
-                ship something genuinely premium.
+                panel, or a complete brand system, we partner closely with you to
+                ship something premium and effective.
               </p>
             </div>
           </Reveal>
@@ -63,16 +69,40 @@ function AboutPage() {
       </section>
 
       <section className="px-6 pb-24">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 border-t border-navy/10">
-          {principles.map((p, i) => (
-            <Reveal key={p.n} delay={i * 0.05}>
-              <div className="p-10 border-b border-navy/10 lg:border-r lg:last:border-r-0 h-full">
-                <span className="text-electric font-display font-bold text-sm tracking-widest">{p.n}</span>
-                <h3 className="font-display font-bold text-xl uppercase tracking-tight mt-6 mb-3">{p.t}</h3>
-                <p className="text-navy/60 text-sm leading-relaxed">{p.d}</p>
+        <div className="max-w-7xl mx-auto grid gap-16 lg:grid-cols-[1.4fr_1fr]">
+          <Reveal>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-navy/40 mb-6">Why Choose AliWebDigital</p>
+              <div className="space-y-6 text-navy/70 text-lg leading-relaxed">
+                <p>
+                  We are a senior-led team that focuses on quality, speed, and
+                  long-term partnerships. Every project is designed to be scalable,
+                  accessible, and aligned with your business goals.
+                </p>
+                <p>
+                  Our clients choose us because we keep processes lean, craft with
+                  intent, and deliver digital experiences that feel premium without
+                  the premium overhead.
+                </p>
               </div>
-            </Reveal>
-          ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="grid gap-6">
+              {principles.map((p) => (
+                <div key={p.n} className="p-10 border border-navy/10 rounded-3xl bg-white shadow-sm">
+                  <span className="text-electric font-display font-bold text-sm tracking-widest">
+                    {p.n}
+                  </span>
+                  <h3 className="font-display font-bold text-xl uppercase tracking-tight mt-6 mb-3">
+                    {p.t}
+                  </h3>
+                  <p className="text-navy/60 text-sm leading-relaxed">{p.d}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Github , Linkedin, Twitter, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { Instagram, Mail, MapPin, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -29,21 +29,21 @@ export function Footer() {
                 Studio
               </p>
               <ul className="space-y-3 text-sm">
-                <li><Link to="/about" className="text-white/70 hover:text-electric transition-colors">About</Link></li>
+                <li><Link to="/about" className="text-white/70 hover:text-electric transition-colors">About Us</Link></li>
                 <li><Link to="/services" className="text-white/70 hover:text-electric transition-colors">Services</Link></li>
+                <li><Link to="/pricing" className="text-white/70 hover:text-electric transition-colors">Pricing</Link></li>
                 <li><Link to="/projects" className="text-white/70 hover:text-electric transition-colors">Projects</Link></li>
                 <li><Link to="/contact" className="text-white/70 hover:text-electric transition-colors">Contact</Link></li>
               </ul>
             </div>
             <div>
               <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-5">
-                Services
+                Legal
               </p>
               <ul className="space-y-3 text-sm text-white/70">
-                <li>Web Development</li>
-                <li>UI / UX Design</li>
-                <li>Brand Identity</li>
-                <li>Admin Panels</li>
+                <li><Link to="/privacy-policy" className="text-white/70 hover:text-electric transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="text-white/70 hover:text-electric transition-colors">Terms & Conditions</Link></li>
+                <li><Link to="/refund-policy" className="text-white/70 hover:text-electric transition-colors">Refund Policy</Link></li>
               </ul>
             </div>
           </div>
@@ -55,28 +55,27 @@ export function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3 text-white/70">
                 <Mail size={16} className="mt-0.5 text-electric" />
-                <a href="mailto:hello@aliwebdigital.com" className="hover:text-white transition-colors">alidigitalexpo11@gmail.com</a>
+                <a href="mailto:alidigitalexpo11@gmail.com" className="hover:text-white transition-colors">alidigitalexpo11@gmail.com</a>
               </li>
               <li className="flex items-start gap-3 text-white/70">
                 <Phone size={16} className="mt-0.5 text-electric" />
-                <a href="tel:+923000000000" className="hover:text-white transition-colors">+91 9502486784</a>
+                <a href="tel:+919502486784" className="hover:text-white transition-colors">+91 9502486784</a>
               </li>
               <li className="flex items-start gap-3 text-white/70">
                 <MapPin size={16} className="mt-0.5 text-electric" />
-                <span>Remote Studio · Available worldwide</span>
+                <span>Kakinada, Andhra Pradesh</span>
               </li>
             </ul>
             <div className="flex gap-3 mt-6">
-              {[Twitter, Linkedin, Instagram, Github].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  aria-label="social"
-                  className="size-10 grid place-items-center border border-white/10 hover:border-electric hover:text-electric transition-colors"
-                >
-                  <Icon size={15} />
-                </a>
-              ))}
+              <a
+                href="https://www.instagram.com/aliwebdigital/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="size-10 grid place-items-center border border-white/10 hover:border-electric hover:text-electric transition-colors"
+              >
+                <Instagram size={15} />
+              </a>
             </div>
           </div>
         </div>
