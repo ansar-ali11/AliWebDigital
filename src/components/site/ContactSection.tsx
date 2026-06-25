@@ -118,7 +118,19 @@ export function ContactSection() {
               <span className="size-10 grid place-items-center border border-white/15 text-electric">
                 <MapPin size={15} />
               </span>
-              <span>Remote · Worldwide</span>
+              <span>
+                <strong className="block text-white">Business Owner:</strong>
+                Mohammad Ansar Ali
+                <br />
+                <strong className="block text-white mt-2">Address:</strong>
+                Marshall High School Backside,
+                <br />
+                Madhavapatnam,
+                <br />
+                Kakinada, Andhra Pradesh - 533006,
+                <br />
+                India
+              </span>
             </li>
           </ul>
         </div>

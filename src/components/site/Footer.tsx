@@ -41,9 +41,8 @@ export function Footer() {
                 Legal
               </p>
               <ul className="space-y-3 text-sm text-white/70">
-                <li><Link to="/privacy-policy" className="text-white/70 hover:text-electric transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/refund-policy" className="text-white/70 hover:text-electric transition-colors">Refund & Cancellation Policy</Link></li>
                 <li><Link to="/terms" className="text-white/70 hover:text-electric transition-colors">Terms & Conditions</Link></li>
-                <li><Link to="/refund-policy" className="text-white/70 hover:text-electric transition-colors">Refund Policy</Link></li>
               </ul>
             </div>
           </div>
@@ -63,7 +62,13 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3 text-white/70">
                 <MapPin size={16} className="mt-0.5 text-electric" />
-                <span>Kakinada, Andhra Pradesh</span>
+                <div>
+                  <span className="block text-white">Owner: Mohammad Ansar Ali</span>
+                  <span className="block">Marshall High School Backside,</span>
+                  <span className="block">Madhavapatnam,</span>
+                  <span className="block">Kakinada, Andhra Pradesh - 533006,</span>
+                  <span className="block">India</span>
+                </div>
               </li>
             </ul>
             <div className="flex gap-3 mt-6">
