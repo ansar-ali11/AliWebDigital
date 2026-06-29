@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as ServicesRouteImport } from './routes/services'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
@@ -18,10 +17,14 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PaymentSubmitRouteImport } from './routes/payment-submit'
 import { Route as EbooksRouteImport } from './routes/ebooks'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ServicesRouteRouteImport } from './routes/services/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesIndexRouteImport } from './routes/services/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as ServicesSlugRouteImport } from './routes/services/$slug'
 import { Route as EbooksIdRouteImport } from './routes/ebooks.$id'
 import { Route as AdminSubmissionsRouteImport } from './routes/admin.submissions'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
@@ -32,11 +35,6 @@ import { Route as AdminBannersRouteImport } from './routes/admin.banners'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RefundPolicyRoute = RefundPolicyRouteImport.update({
@@ -74,6 +72,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -84,15 +87,30 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesRouteRoute = ServicesRouteRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ServicesRouteRoute,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
+} as any)
+const ServicesSlugRoute = ServicesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ServicesRouteRoute,
 } as any)
 const EbooksIdRoute = EbooksIdRouteImport.update({
   id: '/$id',
@@ -127,8 +145,10 @@ const AdminBannersRoute = AdminBannersRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/ebooks': typeof EbooksRouteWithChildren
   '/payment-submit': typeof PaymentSubmitRoute
@@ -136,7 +156,6 @@ export interface FileRoutesByFullPath {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/refund-policy': typeof RefundPolicyRoute
-  '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/admin/banners': typeof AdminBannersRoute
   '/admin/ebooks': typeof AdminEbooksRoute
@@ -144,11 +163,14 @@ export interface FileRoutesByFullPath {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/ebooks/$id': typeof EbooksIdRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/ebooks': typeof EbooksRouteWithChildren
   '/payment-submit': typeof PaymentSubmitRoute
@@ -156,7 +178,6 @@ export interface FileRoutesByTo {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/refund-policy': typeof RefundPolicyRoute
-  '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/admin/banners': typeof AdminBannersRoute
   '/admin/ebooks': typeof AdminEbooksRoute
@@ -164,13 +185,17 @@ export interface FileRoutesByTo {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/ebooks/$id': typeof EbooksIdRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/services': typeof ServicesRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/ebooks': typeof EbooksRouteWithChildren
   '/payment-submit': typeof PaymentSubmitRoute
@@ -178,7 +203,6 @@ export interface FileRoutesById {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/refund-policy': typeof RefundPolicyRoute
-  '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/admin/banners': typeof AdminBannersRoute
   '/admin/ebooks': typeof AdminEbooksRoute
@@ -186,14 +210,18 @@ export interface FileRoutesById {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/submissions': typeof AdminSubmissionsRoute
   '/ebooks/$id': typeof EbooksIdRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/services'
     | '/about'
     | '/admin'
+    | '/checkout'
     | '/contact'
     | '/ebooks'
     | '/payment-submit'
@@ -201,7 +229,6 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/projects'
     | '/refund-policy'
-    | '/services'
     | '/terms'
     | '/admin/banners'
     | '/admin/ebooks'
@@ -209,11 +236,14 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/submissions'
     | '/ebooks/$id'
+    | '/services/$slug'
     | '/admin/'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/checkout'
     | '/contact'
     | '/ebooks'
     | '/payment-submit'
@@ -221,7 +251,6 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/projects'
     | '/refund-policy'
-    | '/services'
     | '/terms'
     | '/admin/banners'
     | '/admin/ebooks'
@@ -229,12 +258,16 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/submissions'
     | '/ebooks/$id'
+    | '/services/$slug'
     | '/admin'
+    | '/services'
   id:
     | '__root__'
     | '/'
+    | '/services'
     | '/about'
     | '/admin'
+    | '/checkout'
     | '/contact'
     | '/ebooks'
     | '/payment-submit'
@@ -242,7 +275,6 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/projects'
     | '/refund-policy'
-    | '/services'
     | '/terms'
     | '/admin/banners'
     | '/admin/ebooks'
@@ -250,13 +282,17 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/submissions'
     | '/ebooks/$id'
+    | '/services/$slug'
     | '/admin/'
+    | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ServicesRouteRoute: typeof ServicesRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
+  CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
   EbooksRoute: typeof EbooksRouteWithChildren
   PaymentSubmitRoute: typeof PaymentSubmitRoute
@@ -264,7 +300,6 @@ export interface RootRouteChildren {
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProjectsRoute: typeof ProjectsRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
-  ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -275,13 +310,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/refund-policy': {
@@ -333,6 +361,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -347,6 +382,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -354,12 +396,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof ServicesRouteRoute
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof ServicesRouteRoute
     }
     '/ebooks/$id': {
       id: '/ebooks/$id'
@@ -406,6 +462,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ServicesRouteRouteChildren {
+  ServicesSlugRoute: typeof ServicesSlugRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
+}
+
+const ServicesRouteRouteChildren: ServicesRouteRouteChildren = {
+  ServicesSlugRoute: ServicesSlugRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
+}
+
+const ServicesRouteRouteWithChildren = ServicesRouteRoute._addFileChildren(
+  ServicesRouteRouteChildren,
+)
+
 interface AdminRouteChildren {
   AdminBannersRoute: typeof AdminBannersRoute
   AdminEbooksRoute: typeof AdminEbooksRoute
@@ -439,8 +509,10 @@ const EbooksRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ServicesRouteRoute: ServicesRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
+  CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
   EbooksRoute: EbooksRouteWithChildren,
   PaymentSubmitRoute: PaymentSubmitRoute,
@@ -448,7 +520,6 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProjectsRoute: ProjectsRoute,
   RefundPolicyRoute: RefundPolicyRoute,
-  ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport

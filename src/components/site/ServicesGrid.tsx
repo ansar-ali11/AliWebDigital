@@ -1,5 +1,6 @@
 import { services } from "@/data/site";
 import { Reveal } from "./Reveal";
+import { Link } from "@tanstack/react-router";
 
 export function ServicesGrid({ heading = true }: { heading?: boolean }) {
   return (
@@ -27,8 +28,10 @@ export function ServicesGrid({ heading = true }: { heading?: boolean }) {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 border-t border-navy/10">
           {services.map((s, i) => (
             <Reveal key={s.number} delay={i * 0.05}>
-              <div
-                className={`group relative p-10 lg:p-12 border-b border-navy/10 lg:border-r transition-colors hover:bg-white cursor-pointer h-full ${
+              <Link
+                to="/services/$slug"
+                params={{ slug: s.slug ?? s.title.toLowerCase().replace(/\s+/g, "-") }}
+                className={`group relative block p-10 lg:p-12 border-b border-navy/10 lg:border-r transition-colors hover:bg-white h-full ${
                   (i + 1) % 3 === 0 ? "lg:border-r-0" : ""
                 }`}
               >
@@ -44,7 +47,7 @@ export function ServicesGrid({ heading = true }: { heading?: boolean }) {
                   {s.title}
                 </h3>
                 <p className="text-navy/60 leading-relaxed">{s.description}</p>
-              </div>
+              </Link>
             </Reveal>
           ))}
         </div>
